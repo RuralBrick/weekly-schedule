@@ -28,15 +28,17 @@ function buildSchedule() {
   var list = spreadsheet.getSheetByName(TEST_LIST);
 
   var events = pullEvents(list.getRange("A2:F"));
-  var timeSlots = generateTimeSlots(events);
-  var columnSlots = findColSlots(events);
+  var scheduleData = generateScheduleData(events);
 
-  console.log(timeSlots);
-  console.log(columnSlots);
+  console.log(scheduleData);
+  for (var day in scheduleData.columns) {
+    console.log(scheduleData.columns[day]);
+  }
 
   // TODO: format sheet
+  formatSheet(events, scheduleData);
 }
 
-function formatSheet(event, timeSlots, colSlots) {
+function formatSheet(events, data) {
 
 }
