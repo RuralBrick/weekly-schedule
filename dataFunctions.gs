@@ -31,7 +31,7 @@ function generateScheduleData(events) {
     var start = events[i].timeStart.toString();
     var end = events[i].timeEnd.toString();
     var day = events[i].day.toString();
-    var col = findColumn(data.dayCol[day], 0, events, events[i].timeStart);
+    var col = findColumn(data.columns[day], 0, events, events[i].timeStart);
 
     if (!data.times.hasOwnProperty(start)) {
       data.times[start] = [];

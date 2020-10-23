@@ -8,7 +8,7 @@ function ynToBool(str) {
   }
 }
 
-function numToWeekday(num) {
+function numToDay(num) {
   switch (num) {
     case 1:
       return "Monday";
@@ -25,24 +25,38 @@ function numToWeekday(num) {
     case 7:
       return "Sunday";
     default:
-      return "NotAWeekday";
+      return "NotADay";
   }
 }
 
-function weekdayToNum(day) {
+function dayToNum(day) {
   switch (day.toLowerCase()) {
+    case 'm':
+    case "mon":
     case "monday":
       return 1;
+    case 't':
+    case "tues":
     case "tuesday":
       return 2;
+    case 'w':
+    case "wed":
     case "wednesday":
       return 3;
+    case 'r':
+    case "thurs":
     case "thursday":
       return 4;
+    case 'f':
+    case "fri":
     case "friday":
       return 5;
+    case 's':
+    case "sat":
     case "saturday":
       return 6;
+    case 'u':
+    case "sun":
     case "sunday":
       return 7;
     default:
