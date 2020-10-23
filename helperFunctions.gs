@@ -1,34 +1,3 @@
-function ynToBool(str) {
-  switch (str.toLowerCase()) {
-    case "yes":
-      return true;
-    case "no":
-    default:
-      return false;
-  }
-}
-
-function numToDay(num) {
-  switch (num) {
-    case 1:
-      return "Monday";
-    case 2:
-      return "Tuesday";
-    case 3:
-      return "Wednesday";
-    case 4:
-      return "Thurdsay";
-    case 5:
-      return "Friday";
-    case 6:
-      return "Saturday";
-    case 7:
-      return "Sunday";
-    default:
-      return "NotADay";
-  }
-}
-
 function dayToNum(day) {
   switch (day.toLowerCase()) {
     case 'm':
@@ -64,6 +33,41 @@ function dayToNum(day) {
   }
 }
 
+function numToDay(num) {
+  switch (num) {
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thurdsay";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+    case 7:
+      return "Sunday";
+    default:
+      return "NotADay";
+  }
+}
+
+function ynToBool(str) {
+  switch (str.toLowerCase()) {
+    case "yes":
+      return true;
+    case "no":
+    default:
+      return false;
+  }
+}
+
+function boolToNum(bool) {
+  return bool ? 1 : 0;
+}
+
 function timeValue(time, precision = 1, isFloat = false) {
   var value = 0;
   var multiplier = 1;
@@ -81,7 +85,45 @@ function timeValue(time, precision = 1, isFloat = false) {
       value += multiplier * time.getHours();
   }
   if (isFloat) {
-    value /= isFloat;
+    value /= (multiplier * 24);
   }
   return value;
+}
+
+function valueTime(value, precision = 1) {
+  var divisor = 1;
+  switch (precision) {
+    case 3:
+      divisor *= 1000;
+    case 2:
+      divisor *= 60;
+    case 1:
+      divisor *= 60;
+    default:
+      divisor *= 24;
+  }
+  return value / divisor;
+}
+
+function getColors() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var colorSheet = spreadsheet.getSheetByName(COLOR_KEY);
+  var ranges = colorSheet.getNamedRanges();
+  var regularRange = ranges[0].getRange();
+  var emphasizedRange = ranges[1].getRange();
+
+  var colors = [{}, {}];
+
+  for (var row = 1; row <= regularRange.getNumRows(); row++) {
+    var cell = regularRange.getCell(row, 1);
+    colors[0][cell.getValue()] = cell.getBackground();
+  }
+  for (var row = 1; row <= emphasizedRange.getNumRows(); row++) {
+    var cell = emphasizedRange.getCell(row, 1);
+    colors[1][cell.getValue()] = cell.getBackground();
+  }
+
+  console.log(colors);
+
+  return colors;
 }

@@ -41,7 +41,7 @@ function generateScheduleData(events) {
       data.times[end] = [];
     }
 
-    data.days[i] = events[i].day;
+    data.days[i] = events[i].day.toString();
 
     if (data.columns[day].length - 1 < col) {
       data.columns[day].push([]);
@@ -50,4 +50,51 @@ function generateScheduleData(events) {
   }
 
   return data;
+}
+
+function getEventCol(days, columns, target) {
+  var day = days[target];
+  var dayCols = columns[day];
+  var offset = 0;
+
+  search:
+  for (var subCol = 0; subCol < dayCols.length; subCol++) {
+    for (var i of dayCols[subCol]) {
+      if (target == i) {
+        offset = subCol;
+        break search;
+      }
+    }
+  }
+
+  return calcCol(columns, day, offset);
+}
+
+function calcCol(columns, day, offset = 0) {
+  var col = 2;
+  switch (day) {
+    case 7:
+    case '7':
+      col += columns['6'].length;
+    case 6:
+    case '6':
+      col += columns['5'].length;
+    case 5:
+    case '5':
+      col += columns['4'].length;
+    case 4:
+    case '4':
+      col += columns['3'].length;
+    case 3:
+    case '3':
+      col += columns['2'].length;
+    case 2:
+    case '2':
+      col += columns['1'].length;
+    case 1:
+    case '1':
+    default:
+      col += offset;
+  }
+  return col;
 }

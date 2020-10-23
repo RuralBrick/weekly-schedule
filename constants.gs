@@ -5,6 +5,9 @@ const CURRENT_SCHEDULE = "Fall 2020";
 const CURRENT_LIST = "Fall 2020 List";
 const COLOR_KEY = "Key";
 
+const TEMPLATE_SCHEDULE = "Template";
+const TEMPLATE_LIST = "List Template";
+
 const DAY_HOUR_START = 6;
 const DAY_HOUR_END = 22;
 
@@ -13,4 +16,5 @@ const SEC_PER_DAY = 86400;
 const MIN_PER_DAY = 1440;
 const HOURS_PER_DAY = 24;
 
+const MS_PER_MIN = 60000;
 const MIN_PER_HOUR = 60;
