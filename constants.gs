@@ -1,8 +1,8 @@
 const TEST_SCHEDULE = "test";
 const TEST_LIST = "test list";
 
-const CURRENT_SCHEDULE = "Fall 2020";
-const CURRENT_LIST = "Fall 2020 List";
+const CURRENT_SCHEDULE = "Parameters!B1";
+const CURRENT_LIST = "Parameters!B2";
 const COLOR_KEY = "Key";
 
 const TEMPLATE_SCHEDULE = "Template";

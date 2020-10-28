@@ -105,9 +105,32 @@ function valueTime(value, precision = 1) {
   return value / divisor;
 }
 
-function getColors() {
+function getConstSheet(sheetVar) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var colorSheet = spreadsheet.getSheetByName(COLOR_KEY);
+
+  if (sheetVar == CURRENT_SCHEDULE || sheetVar == CURRENT_LIST) {
+    var name = spreadsheet.getRange(sheetVar).getValue();
+    return spreadsheet.getSheetByName(name);
+  }
+  else {
+    return spreadsheet.getSheetByName(sheetVar);
+  }
+}
+
+function cmpConstSheet(sheet, sheetVar) {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  if (sheetVar == CURRENT_SCHEDULE || sheetVar == CURRENT_LIST) {
+    var name = spreadsheet.getRange(sheetVar).getValue();
+    return sheet.getName() == name;
+  }
+  else {
+    return sheet.getName() == sheetVar;
+  }
+}
+
+function getColors() {
+  var colorSheet = getConstSheet(COLOR_KEY);
   var ranges = colorSheet.getNamedRanges();
   var regularRange = ranges[0].getRange();
   var emphasizedRange = ranges[1].getRange();
@@ -122,8 +145,6 @@ function getColors() {
     var cell = emphasizedRange.getCell(row, 1);
     colors[1][cell.getValue()] = cell.getBackground();
   }
-
-  console.log(colors);
 
   return colors;
 }

@@ -10,23 +10,21 @@ function onOpen() {
 }
 
 function addEvent() {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = SpreadsheetApp.getActiveSheet();
 
-  if (sheet.getName() == TEST_LIST || sheet.getName() == CURRENT_LIST) {
+  if (cmpConstSheet(sheet, TEST_LIST) || cmpConstSheet(sheet, CURRENT_LIST)) {
     var columns = sheet.getLastColumn();
     sheet.appendRow(new Array(columns));
   }
   else {
-    spreadsheet.toast("Cannot add event to this sheet");
+    SpreadsheetApp.getActiveSpreadsheet().toast("Cannot add event to this sheet");
   }
 }
 
 function buildSchedule() {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var template = spreadsheet.getSheetByName(TEMPLATE_SCHEDULE);
-  var schedule = spreadsheet.getSheetByName(CURRENT_SCHEDULE);
-  var list = spreadsheet.getSheetByName(CURRENT_LIST);
+  var template = getConstSheet(TEMPLATE_SCHEDULE);
+  var schedule = getConstSheet(CURRENT_SCHEDULE);
+  var list = getConstSheet(CURRENT_LIST);
 
   var events = pullEvents(list.getRange("A2:F"));
   var scheduleData = generateScheduleData(events);
