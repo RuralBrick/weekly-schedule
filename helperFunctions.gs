@@ -42,7 +42,7 @@ function numToDay(num) {
     case 3:
       return "Wednesday";
     case 4:
-      return "Thurdsay";
+      return "Thursday";
     case 5:
       return "Friday";
     case 6:
