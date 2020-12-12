@@ -69,6 +69,9 @@ function boolToNum(bool) {
 }
 
 function timeValue(time, precision = 1, isFloat = false) {
+  if (time == "")
+    return null;
+
   var value = 0;
   var multiplier = 1;
   switch (precision) {

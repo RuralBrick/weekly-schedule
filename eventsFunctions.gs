@@ -9,7 +9,8 @@ function pullEvents(range) {
       type: row[4],
       emphasize: ynToBool(row[5])
     };
-    events.push(event);
+    if (event.day != -1 && event.timeStart != null && event.timeEnd != null)
+      events.push(event);
   }
   return events;
 }

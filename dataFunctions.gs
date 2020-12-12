@@ -6,20 +6,6 @@ function newColObj() {
   return columns;
 }
 
-function findColumn(columns, colNum, events, eventStart) {
-  if (columns[colNum] != null) {
-    for (var i of columns[colNum]) {
-      var other = events[i];
-      // if overlapping any event in current column, move on to next column
-      if (eventStart >= other.timeStart && eventStart < other.timeEnd) {
-        return findColumn(columns, colNum + 1, events, eventStart);
-      }
-    }
-  }
-  // if column empty or no overlap, slot found
-  return colNum;
-}
-
 function generateScheduleData(events) {
   var data = {
     times: {},           // Time stamp header: Indexes of events[]
@@ -52,6 +38,67 @@ function generateScheduleData(events) {
   return data;
 }
 
+function findColumn(columns, colNum, events, eventStart) {
+  if (columns[colNum] != null) {
+    for (var i of columns[colNum]) {
+      var other = events[i];
+      // if overlapping any event in current column, move on to next column
+      if (eventStart >= other.timeStart && eventStart < other.timeEnd) {
+        return findColumn(columns, colNum + 1, events, eventStart);
+      }
+    }
+  }
+  // if column empty or no overlap, slot found
+  return colNum;
+}
+
+function calcCol(columns, day, offset = 0) {
+  var col = 2;
+  switch (day) {
+    case 7:
+    case '7':
+      if (columns['6'].length <= 0)
+        col++;
+      else
+        col += columns['6'].length;
+    case 6:
+    case '6':
+      if (columns['5'].length <= 0)
+        col++;
+      else
+        col += columns['5'].length;
+    case 5:
+    case '5':
+      if (columns['4'].length <= 0)
+        col++;
+      else
+        col += columns['4'].length;
+    case 4:
+    case '4':
+      if (columns['3'].length <= 0)
+        col++;
+      else
+        col += columns['3'].length;
+    case 3:
+    case '3':
+      if (columns['2'].length <= 0)
+        col++;
+      else
+        col += columns['2'].length;
+    case 2:
+    case '2':
+      if (columns['1'].length <= 0)
+        col++;
+      else
+        col += columns['1'].length;
+    case 1:
+    case '1':
+    default:
+      col += offset;
+  }
+  return col;
+}
+
 function getEventCol(days, columns, target) {
   var day = days[target];
   var dayCols = columns[day];
@@ -68,33 +115,4 @@ function getEventCol(days, columns, target) {
   }
 
   return calcCol(columns, day, offset);
-}
-
-function calcCol(columns, day, offset = 0) {
-  var col = 2;
-  switch (day) {
-    case 7:
-    case '7':
-      col += columns['6'].length;
-    case 6:
-    case '6':
-      col += columns['5'].length;
-    case 5:
-    case '5':
-      col += columns['4'].length;
-    case 4:
-    case '4':
-      col += columns['3'].length;
-    case 3:
-    case '3':
-      col += columns['2'].length;
-    case 2:
-    case '2':
-      col += columns['1'].length;
-    case 1:
-    case '1':
-    default:
-      col += offset;
-  }
-  return col;
 }

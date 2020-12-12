@@ -72,6 +72,8 @@ function buildSchedule() {
   var latestCol = 2;
   for (var day in scheduleData.columns) {
     var numSubcol = scheduleData.columns[day].length;
+    if (numSubcol <= 0)
+      numSubcol = 1;
     var range = schedule.getRange(1, latestCol, 1, numSubcol);
 
     range.merge()
