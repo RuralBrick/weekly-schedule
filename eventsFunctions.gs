@@ -12,5 +12,6 @@ function pullEvents(range) {
     if (event.day != -1 && event.timeStart != null && event.timeEnd != null)
       events.push(event);
   }
+  events.sort((a, b) => (a.timeStart > b.timeStart) ? 1 : -1);
   return events;
 }

@@ -43,7 +43,7 @@ function findColumn(columns, colNum, events, eventStart) {
     for (var i of columns[colNum]) {
       var other = events[i];
       // if overlapping any event in current column, move on to next column
-      if (eventStart >= other.timeStart && eventStart <= other.timeEnd) {
+      if (eventStart >= other.timeStart && eventStart < other.timeEnd) {
         return findColumn(columns, colNum + 1, events, eventStart);
       }
     }
