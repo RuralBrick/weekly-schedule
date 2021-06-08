@@ -6,6 +6,17 @@ function newColObj() {
   return columns;
 }
 
+function padScheduleData(data) {
+  var start = 10 * MIN_PER_HOUR;
+  var end = 22 * MIN_PER_HOUR;
+  for (var time = start; time <= end; time += MIN_PER_HOUR) {
+    if (!data.times.hasOwnProperty(time)) {
+      data.times[time] = [];
+    }
+  }
+  return data;
+}
+
 function generateScheduleData(events) {
   var data = {
     times: {},           // Time stamp header: Indexes of events[]
