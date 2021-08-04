@@ -23,13 +23,13 @@ function generateScheduleData(events) {
     days: [],            // [Index of event] -> Day number of event
     columns: newColObj() // Day number: [Subcolumn number] -> Index of event
   };
-
+  
   for (var i = 0; i < events.length; i++ ) {
     var start = events[i].timeStart.toString();
     var end = events[i].timeEnd.toString();
     var day = events[i].day.toString();
     var col = findColumn(data.columns[day], 0, events, events[i].timeStart);
-
+    
     if (!data.times.hasOwnProperty(start)) {
       data.times[start] = [];
     }
@@ -37,9 +37,9 @@ function generateScheduleData(events) {
     if (!data.times.hasOwnProperty(end)) {
       data.times[end] = [];
     }
-
+    
     data.days[i] = events[i].day.toString();
-
+    
     if (data.columns[day].length - 1 < col) {
       data.columns[day].push([]);
     }
@@ -114,7 +114,7 @@ function getEventCol(days, columns, target) {
   var day = days[target];
   var dayCols = columns[day];
   var offset = 0;
-
+  
   search:
   for (var subCol = 0; subCol < dayCols.length; subCol++) {
     for (var i of dayCols[subCol]) {
@@ -124,6 +124,6 @@ function getEventCol(days, columns, target) {
       }
     }
   }
-
+  
   return calcCol(columns, day, offset);
 }

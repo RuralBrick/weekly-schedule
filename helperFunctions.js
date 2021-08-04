@@ -71,7 +71,7 @@ function boolToNum(bool) {
 function timeValue(time, precision = 1, isFloat = false) {
   if (time == "")
     return null;
-
+  
   var value = 0;
   var multiplier = 1;
   switch (precision) {
@@ -110,7 +110,7 @@ function valueTime(value, precision = 1) {
 
 function getConstSheet(sheetVar) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-
+  
   if (sheetVar == CURRENT_SCHEDULE || sheetVar == CURRENT_LIST) {
     var name = spreadsheet.getRange(sheetVar).getValue();
     return spreadsheet.getSheetByName(name);
@@ -122,7 +122,7 @@ function getConstSheet(sheetVar) {
 
 function cmpConstSheet(sheet, sheetVar) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-
+  
   if (sheetVar == CURRENT_SCHEDULE || sheetVar == CURRENT_LIST) {
     var name = spreadsheet.getRange(sheetVar).getValue();
     return sheet.getName() == name;
@@ -137,9 +137,9 @@ function getColors() {
   var ranges = colorSheet.getNamedRanges();
   var regularRange = ranges[0].getRange();
   var emphasizedRange = ranges[1].getRange();
-
+  
   var colors = [{}, {}];
-
+  
   for (var row = 1; row <= regularRange.getNumRows(); row++) {
     var cell = regularRange.getCell(row, 1);
     colors[0][cell.getValue()] = cell.getBackground();
@@ -148,6 +148,6 @@ function getColors() {
     var cell = emphasizedRange.getCell(row, 1);
     colors[1][cell.getValue()] = cell.getBackground();
   }
-
+  
   return colors;
 }
